@@ -1,0 +1,100 @@
+			<!-- Content -->
+			<div class="col-md-10 col-sm-2">
+				<h1>Categorías</h1>
+				<button type="button" class="btn btn btn-primary btn-sm" data-toggle="modal" data-target="#nuevaCategoria">
+		          <span class="glyphicon glyphicon-plus"></span> Nueva
+		        </button><br><br>
+				<table class="table table-bordered">
+				  <thead class="thead-inverse">
+				    <tr>
+				      <th>Categoría</th>
+				      <th>Estado</th>
+				      <th>Fecha</th>
+				      <th>Editar</th>
+				      <th>Eliminar</th>
+				    </tr>
+				  </thead>
+				  <tbody id="datos">
+				  		<tr ng-repeat="(key,categoria) in categorias">
+				  			<td>{{categoria.Nombre}}</td>
+				  			<td>{{categoria.Estado}}</td>
+				  			<td>{{categoria.Fecha}}</td>
+				  			<td>
+				  				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#editarCategoria" ng-click="abrirModalEditar(key,categoria);">
+						          <span class="glyphicon glyphicon-edit"></span>
+						        </button>
+				  			</td>
+				  			<td>
+				  				<button type="button" class="btn btn-danger" ng-click="eliminarCategoria(key)">
+						          <span class="glyphicon glyphicon-remove"></span> 
+						        </button>
+				  			</td>
+				  		</tr>
+				  </tbody>
+				</table>
+				<div class="alert alert-success alert-dismissible" style="display:none;" id="alerta">
+				    <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				    <strong>Registro eliminado</strong>
+				  </div>
+			</div>
+	<div class="modal fade" id="editarCategoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Editar categoría</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form>
+	          <div class="form-group">
+	            <label for="recipient-name" class="form-control-label">Nombre de la categoría</label>
+	            <input type="text" class="form-control" id="menuText" ng-model="valorCategoriaEditar.Nombre">
+	          </div>
+	          <div class="form-group">
+			    <label for="exampleFormControlSelect1">Seleccione un estado</label>
+			    <select class="form-control" id="listaEstados" ng-model="valorCategoriaEditar.Estado">
+			    	<option ng-repeat="estado in estados" value="{{estado}}">{{estado}}</option>
+			    </select>
+			  </div>
+	        </form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+	        <button type="button" class="btn btn-primary" ng-click="guardarCambios();">Guardar cambios</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<div class="modal fade" id="nuevaCategoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Agregar una nueva categoría</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form>
+	          <div class="form-group">
+	            <label for="recipient-name" class="form-control-label">Nombre de la categoría</label>
+	            <input type="text" class="form-control" ng-model="nombreNuevaCategoria">
+	          </div>
+	          <div class="form-group">
+			    <label for="exampleFormControlSelect1">Seleccione un estado</label>
+			    <select class="form-control" id="listaEstados_2" ng-model="estadoNuevaCategoria">
+			    	<option ng-repeat="estado in estados" value="{{estado}}">{{estado}}</option>
+			    </select>
+			  </div>
+	        </form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+	        <button type="button" class="btn btn-primary" ng-click="guardarNuevo()">Guardar</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>

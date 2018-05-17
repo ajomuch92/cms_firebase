@@ -1,0 +1,68 @@
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Iniciar sesión</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/signin.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
+	<script src="../config/config.conf"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script type="text/javascript">
+		var config = {
+	          apiKey: api_Key,
+	          authDomain: auth_Domain,
+	          databaseURL: database_URL,
+	          projectId: project_Id,
+	          storageBucket: storage_Bucket,
+	          messagingSenderId: messaging_SenderId
+	        };
+	     firebase.initializeApp(config);
+	     var auth=localStorage.getItem("valido");
+	     if(auth=="sí"){
+	     	location.href="../administrador";	     	
+	     }
+	     function autenticar(){
+				var email=document.getElementById('correo').value;
+				var password=document.getElementById('contrasenia').value;
+				$('#alerta').fadeOut();
+				firebase.auth().signInWithEmailAndPassword(email, password).then(function(){
+						localStorage.setItem('valido', 'sí');
+						location.href="../administrador";
+				}).catch(function(error,user) {
+					var c=error.code;
+					if(c=='auth/wrong-password'){
+						document.getElementById('msg').innerHTML="Contraseña incorrecta";
+						$('#alerta').fadeIn();
+					}else if(c=='auth/invalid-email'){
+						document.getElementById('msg').innerHTML="Correo no válido";
+						$('#alerta').fadeIn();
+					}
+				});
+			}
+	</script>
+</head>
+<body>
+	<div class="container">
+
+      <form class="form-signin">
+        <h2 class="form-signin-heading">Iniciar sesión</h2>
+        <label for="inputEmail" class="sr-only">Correo Electrónico</label>
+        <input type="email" id="correo" class="form-control" placeholder="Correo Electrónico" required autofocus>
+        <label for="inputPassword" class="sr-only">Contraseña</label>
+        <input type="password" id="contrasenia" class="form-control" placeholder="Contraseña" required>
+        <button class="btn btn-lg btn-primary btn-block" type="button" onclick="autenticar()">Entrar</button>
+        <a class="btn btn-block btn-social btn-twitter">
+		    <span class="fa fa-facebook-square"></span> Ingresar con Facebook
+		  </a>
+      </form>
+      <div class="alert alert-danger alert-dismissible" style="display:none;" id="alerta">
+				    <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				    <p id="msg"></p>
+				  </div>
+    </div>
+</body>
+</html>

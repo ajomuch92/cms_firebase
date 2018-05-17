@@ -1,0 +1,58 @@
+<div class="col-md-10 col-sm-2">
+				<h1>Mi información de contacto</h1>
+				<form>
+					<div class="form-check">
+					    <label class="form-check-label">
+					      <input type="checkbox" class="form-check-input" ng-model="habilitar">
+					      Habilitar información de contacto
+					    </label>
+					  </div>
+					<div>
+						<div class="form-group">
+						    <label for="exampleFormControlInput1">Correo electrónico</label>
+						    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="" ng-disabled="!habilitar" ng-model="contacto.correo">
+						</div>
+						<div class="form-group">
+						    <label for="exampleFormControlInput1">Teléfono</label>
+						    <input type="tel" class="form-control" id="exampleFormControlInput1" placeholder="" ng-disabled="!habilitar" ng-model="contacto.telefono">
+						</div>
+						<div class="form-group">
+						    <label for="exampleFormControlInput1">Fax</label>
+						    <input type="tel" class="form-control" id="exampleFormControlInput1" placeholder="" ng-disabled="!habilitar" ng-model="contacto.fax">
+						</div>
+						<div class="form-group">
+						    <label for="inputAddress" class="col-form-label">Dirección</label>
+						    <input type="text" class="form-control" id="inputAddress" placeholder="" ng-disabled="!habilitar" ng-model="contacto.direccion">
+						</div>
+						<div class="form-group">
+						    <label for="inputAddress2" class="col-form-label">Mapa</label>
+						    <input type="text" class="form-control" id="inputAddress2" placeholder="Pegar el código de su mapa de Google Maps aquí" ng-disabled="!habilitar" ng-model="contacto.mapa">
+						</div>
+						    <div class="form-group">
+						      <label for="inputCity" class="col-form-label">Ciudad</label>
+						      <input type="text" class="form-control" id="inputCity" ng-disabled="!habilitar" ng-model="contacto.ciudad">
+						    </div>
+						    <div class="form-group">
+						      <label for="inputState" class="col-form-label">Estado o departamento</label>
+						      <input type="text" class="form-control" id="inputCity" ng-disabled="!habilitar" ng-model="contacto.estado">
+						    </div>
+					</div>
+					<button type="button" class="btn btn-primary" ng-click="guardarCambios()">Guardar cambios</button>
+				</form>
+			</div>
+
+<div class="modal fade" id="cambiosGuardados" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">{{msg}}</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>

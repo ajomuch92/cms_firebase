@@ -1,0 +1,5 @@
+-Login del install
+-Validación de campos
+-fechas de publicación
+-Quitar HTML cuando trae la opción "Leer más"
+*Plantillas

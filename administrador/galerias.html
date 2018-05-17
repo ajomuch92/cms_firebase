@@ -1,0 +1,86 @@
+			<!-- Content -->
+			<div class="col-md-10 col-sm-2">
+				<h1>Imágenes de la galería</h1>
+				<button type="button" class="btn btn btn-primary btn-sm" data-toggle="modal" data-target="#nuevaCategoria" ng-click="nuevo();">
+		          <span class="glyphicon glyphicon-plus"></span> Nueva
+		        </button><br><br>
+				<table class="table table-bordered">
+				  <thead class="thead-inverse">
+				    <tr>
+				      <th>Imagen</th>
+				      <th>Tamaño</th>
+				      <th>Fecha</th>
+				      <th>Ver</th>
+				      <th>Eliminar</th>
+				    </tr>
+				  </thead>
+				  <tbody id="datos">
+				  		<tr ng-repeat="(key,galeria) in galerias">
+				  			<td>{{galeria.Nombre}}</td>
+				  			<td>{{galeria.Tamanio}}</td>
+				  			<td>{{galeria.Fecha}}</td>
+				  			<td>
+				  				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#verImagen" ng-click="verImagen(galeria.Direccion);">
+						          <span class="glyphicon glyphicon-eye-open"></span>
+						        </button>
+				  			</td>
+				  			<td>
+				  				<button type="button" class="btn btn-danger" ng-click="eliminarImagen(key,galeria.Direccion);">
+						          <span class="glyphicon glyphicon-remove"></span> 
+						        </button>
+				  			</td>
+				  		</tr>
+				  </tbody>
+				</table>
+				<div class="alert alert-success alert-dismissible" style="display:none;" id="alerta">
+				    <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				    <strong>Imagen eliminada</strong>
+				  </div>
+			</div>
+	<div class="modal fade" id="nuevaCategoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Agregar una nueva imagen</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form>
+	          <div class="form-group">
+			    <label for="inputAddress" class="col-form-label">Imagen</label>
+			    <input type="file" class="form-control-file" id="archivoImagen" accept="image/x-png,image/gif,image/jpeg" >
+			  </div>
+			  <div class="form-group">
+					<label for="cuerpoArticulo">Descripción</label>
+					<textarea class="form-control" id="cuerpoArticulo" ng-model="descripcion" rows="3"></textarea>
+			  </div>
+	        </form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+	        <button type="button" class="btn btn-primary" ng-click="guardarImagen()">Guardar</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+<div class="modal fade" id="verImagen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Ver imagen</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <img class="img-thumbnail" src="" id="imagen" >
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>

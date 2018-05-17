@@ -1,0 +1,106 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.4.0/firebase.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+  <script type="text/javascript" src="https://code.angularjs.org/1.6.6/angular-route.min.js"></script>
+  <script type="text/javascript" src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-sanitize.js"></script>
+  <script src="config/config.conf"></script>
+  <script type="text/javascript" src="js/bootstrap-notify.js"></script>
+  <script type="text/javascript" src="js/controlador.js"></script>
+  <style>
+    .parallax {
+        height: 50%; 
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    #myBtn {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 30px;
+      z-index: 99;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 15px;
+      border-radius: 10px;
+    }
+  </style>
+  </head>
+<body onload="verificar()" id='cuerpo' style='display:none;' ng-app="index" ng-controller="indexController">
+	<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExample03">
+        <ul class="navbar-nav mr-auto">
+          <li ng-repeat="(key,menu) in menus" ng-class="{true: 'nav-item active', false: 'nav-item'}[key == configuracion.mainPage]" id="menu_{{key}}">
+            <a class="nav-link" href="#!menu/{{key}}">{{menu.Nombre}}<span class="sr-only">(current)</span></a>
+          </li>
+          <li ng-class="nav-item" ng-repeat="m in menus_2">
+            <a class="nav-link" href="#!{{m}}">{{m}}<span class="sr-only">(current)</span></a>
+          </li>
+          <li ng-class="nav-item">
+            <a class="nav-link" href="#!buscar">Buscar<span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  <div id="parallax" class="parallax"></div><br>
+  <!--div class="jumbotron">
+    <div class="row">
+      <div class="col-8" style="padding-left: 80px;" ng-view></div>
+      <div class="col-4">Categorías
+        <ul>
+          <li ng-repeat="(key,categoria) in categorias"><a href="#!categoria/{{categoria.Nombre}}/{{key}}">{{categoria.Nombre}}</a></li>
+          <li><a href="#!top">Mejores puntuados</a></li>
+          <li><a href="#!masleidos">Más leídos</a></li>
+        </ul>
+      </div>
+    </div>
+  </div-->
+  <section class="container-full">
+
+    <!-- Main page -->
+    <div class="row" id="full-page">
+
+      <!-- Sidebar -->
+      <div class="col-md-2 col-sm-2">
+        <div class="profile-sidebar">
+          <!-- Sidebar menu -->
+          <nav class="profile-menu">
+            <strong>Categorías</strong>
+            <ul class="nav navbar vertical">
+              <li ng-repeat="(key,categoria) in categorias"><a href="#!categoria/{{categoria.Nombre}}/{{key}}">{{categoria.Nombre}}</a></li>
+            </ul>
+            <strong>Podría ser de su interés</strong>
+            <ul class="nav navbar vertical">
+              <li><a href="#!top">Mejores puntuados</a></li>
+              <li><a href="#!masleidos">Más leídos</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="col-md-10 col-sm-2"><div class="col-md-10 col-sm-2">
+        <div ng-view></div>
+      </div></div>
+    </div>
+  </section>
+  <button class="btn btn-dark" onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-angle-up" aria-hidden="true"></i></button>
+</body>
+</html>

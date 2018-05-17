@@ -1,0 +1,102 @@
+
+
+			<!-- Content -->
+			<div class="col-md-10 col-sm-2">
+				<h1>Menus</h1>
+				<button type="button" class="btn btn btn-primary btn-sm" data-toggle="modal" data-target="#nuevoMenu">
+		          <span class="glyphicon glyphicon-plus"></span> Nuevo
+		        </button><br><br>
+				<table class="table table-bordered">
+				  <thead class="thead-inverse">
+				    <tr>
+				      <th>Menú</th>
+				      <th>Estado</th>
+				      <th>Fecha</th>
+				      <th>Editar</th>
+				      <th>Eliminar</th>
+				    </tr>
+				  </thead>
+				  <tbody id="datos">
+				  		<tr ng-repeat="(key,menu) in menus">
+				  			<td>{{menu.Nombre}}</td>
+				  			<td>{{menu.Estado}}</td>
+				  			<td>{{menu.Fecha}}</td>
+				  			<td>
+				  				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#editarMenu" ng-click="abrirModalEditar(key,menu);">
+						          <span class="glyphicon glyphicon-edit"></span>
+						        </button>
+				  			</td>
+				  			<td>
+				  				<button type="button" class="btn btn-danger" ng-click="eliminarMenu(key)">
+						          <span class="glyphicon glyphicon-remove"></span> 
+						        </button>
+				  			</td>
+				  		</tr>
+				  </tbody>
+				</table>
+				<div class="alert alert-success alert-dismissible" style="display:none;" id="alerta">
+				    <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				    <strong>Registro eliminado!</strong>
+				  </div>
+			</div>
+	<div class="modal fade" id="editarMenu" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Editar menú</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form>
+	          <div class="form-group">
+	            <label for="recipient-name" class="form-control-label">Nombre del Menú</label>
+	            <input type="text" class="form-control" id="menuText" ng-model="valorMenudEditar.Nombre">
+	          </div>
+	          <div class="form-group">
+			    <label for="exampleFormControlSelect1">Seleccione un estado</label>
+			    <select class="form-control" id="listaEstados" ng-model="valorMenudEditar.Estado">
+			    	<option ng-repeat="estado in estados" value="{{estado}}">{{estado}}</option>
+			    </select>
+			  </div>
+	        </form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+	        <button type="button" class="btn btn-primary" ng-click="guardarCambios();">Guardar cambios</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<div class="modal fade" id="nuevoMenu" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Agregar un nuevo menú</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form>
+	          <div class="form-group">
+	            <label for="recipient-name" class="form-control-label">Nombre del Menú</label>
+	            <input type="text" class="form-control" ng-model="nombreNuevoMenu">
+	          </div>
+	          <div class="form-group">
+			    <label for="exampleFormControlSelect1">Seleccione un estado</label>
+			    <select class="form-control" id="listaEstados_2" ng-model="estadoNuevoMenu">
+			    	<option ng-repeat="estado in estados" value="{{estado}}">{{estado}}</option>
+			    </select>
+			  </div>
+	        </form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+	        <button type="button" class="btn btn-primary" ng-click="guardarNuevo()">Guardar</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>

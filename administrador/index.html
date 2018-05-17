@@ -1,0 +1,121 @@
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script type="text/javascript" src="https://code.angularjs.org/1.6.6/angular-route.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<title>Administrar mi sitio</title>
+	<script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
+    <script type="text/javascript" src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+	<script src="../config/config.conf"></script>
+	<script src="../js/tinymce.min.js"></script>
+	<script type="text/javascript" src="../js/angular-ui-tinymce.js"></script>
+	<script type="text/javascript" src="controlador.js"></script>
+	<script type="text/javascript">
+		
+	     var auth=localStorage.getItem("valido");
+	     if(auth!="sí"){
+	     	location.href="../login"
+	     }
+	</script>
+</head>
+
+<body ng-app="admin" ng-controller="adminController">
+
+	<div class="container-full">
+
+		<!-- Nav -->
+		<nav class="navbar navbar-inverse navbar-static-top">
+			<div class="container margin-left-nav">
+				<div class="row">
+					<div class="col-md-2 col-sm-2">
+						<!-- Navbar brand (Brainiac) y botón colapsable -->
+						<div class="navbar-header">
+							<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                          </button>
+							<a class="navbar-brand" href="#!/" id="marca">{{configuracion.nombreSitio}}</a>
+						</div>
+					</div>
+
+					<div class="col-md-10 col-sm-10">
+						<div class="navbar-collapse collapse" id="navbar-main">
+
+							<!-- Navbar derecho (Registro, Login) -->
+							<ul class="nav navbar-nav navbar-right horizontal">
+									
+
+								<!-- Inicio de sesión -->
+								<li class="dropdown">
+									<a href="" class="dropdown-toggle" data-toggle="dropdown">Mi cuenta <span class="caret"></span></a>
+									<ul class="dropdown-menu dropdown-width">
+										<div class="col-lg-12">
+											<div class="text-center">
+												<a href="" onclick="cerrarSesion();">
+										          <span class="glyphicon glyphicon-log-out"></span>Cerrar Sesión
+										        </a>
+											
+										</div>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</nav>
+	</div>
+
+
+	<section class="container-full">
+
+		<!-- Main page -->
+		<div class="row" id="full-page">
+
+			<!-- Sidebar -->
+			<div class="col-md-2 col-sm-2">
+				<div class="profile-sidebar">
+					<!-- Sidebar menu -->
+					<nav class="profile-menu">
+						<ul class="nav navbar vertical">
+							<li>
+								<a href="#!articulos"><i class="glyphicon glyphicon-th-list"></i> Artículos</a>
+							</li>
+							<li>
+								<a href="#!categorias"><i class="glyphicon glyphicon-list-alt"></i> Categorías</a>
+							</li>
+							<li>
+								<a href="#!menus"><i class="glyphicon glyphicon-menu-hamburger"></i> Menús</a>
+							</li>
+							<li>
+								<a href="#!galerias"><i class="glyphicon glyphicon-picture"></i>Galerías</a>
+							</li>
+							<li>
+								<a href="#!info"><i class="glyphicon glyphicon-flag"></i> Información de contacto</a>
+							</li>
+							<li>
+								<a href="#!config"><i class="glyphicon glyphicon-cog"></i> Configuración</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+
+			<!-- Content -->
+			<div class="col-md-10 col-sm-2">
+				{{msg}}
+				<div ng-view></div>
+			</div>
+		</div>
+	</section>
+</body>

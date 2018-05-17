@@ -1,0 +1,193 @@
+		<!-- Content -->
+<script>
+    tinymce.init({
+		  selector: 'textarea',
+		  height: 500,
+		  menubar: false,
+		  language : "es",
+		  plugins: [
+		    'advlist autolink lists link image charmap print preview anchor textcolor',
+		    'searchreplace visualblocks code fullscreen',
+		    'insertdatetime media table contextmenu paste code help'
+		  ],
+		  toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat ',
+		  content_css: [
+		    '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+		    '//www.tinymce.com/css/codepen.min.css']
+		});
+</script>
+			<div class="col-md-10 col-sm-2">
+				<h1>Artículos</h1>
+				<button type="button" class="btn btn btn-primary btn-sm" data-toggle="modal" data-target="#nuevoArticulo">
+		          <span class="glyphicon glyphicon-plus"></span> Nuevo
+		        </button><br><br>
+				<table class="table table-bordered">
+				  <thead class="thead-inverse">
+				    <tr>
+				      <th>Título artículo</th>
+				      <th>Estado</th>
+				      <th>Autor</th>
+				      <th>Fecha</th>
+				      <th>Editar</th>
+				      <th>Eliminar</th>
+				    </tr>
+				  </thead>
+				  <tbody id="datos">
+				  		<tr ng-repeat="(key,articulo) in articulos">
+				  			<td>{{articulo.Titulo}}</td>
+				  			<td>{{articulo.Estado}}</td>
+				  			<td>{{articulo.Autor}}</td>
+				  			<td>{{articulo.Fecha}}</td>
+				  			<td>
+				  				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#editarArticulo" ng-click="abrirModalEditar(key,articulo);">
+						          <span class="glyphicon glyphicon-edit"></span>
+						        </button>
+				  			</td>
+				  			<td>
+				  				<button type="button" class="btn btn-danger" ng-click="eliminarArticulo(key)">
+						          <span class="glyphicon glyphicon-remove"></span> 
+						        </button>
+				  			</td>
+				  		</tr>
+				  </tbody>
+				</table>
+				<div class="alert alert-success alert-dismissible" style="display:none;" id="alerta">
+				    <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				    <strong>Registro eliminado</strong>
+				  </div>
+			</div>
+	<div class="modal fade" id="editarArticulo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Editar Artículo</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form>
+	          <div class="form-group">
+	            <label for="recipient-name" class="form-control-label">Título del artículo</label>
+	            <input type="text" class="form-control" ng-model="valorArticuloEditar.Titulo">
+	          </div>
+	          <div class="form-group">
+			    <label for="cuerpoArticulo">Cuerpo del artículo</label>
+			    <textarea class="form-control" id="cuerpoArticuloEditado" rows="3"></textarea>
+			  </div>
+			  <div class="form-check">
+				  <label class="form-check-label">
+				    <input class="form-check-input" type="checkbox" value="" ng-model="valorArticuloEditar.LeerMas">Leer más...
+				  </label>
+				</div>
+			  <div class="form-group">
+	            <label for="recipient-name" class="form-control-label">Autor del artículo</label>
+	            <input type="text" class="form-control" ng-model="valorArticuloEditar.Autor">
+	          </div>
+	          <div class="form-group">
+			    <label for="exampleFormControlSelect1">Seleccione un estado</label>
+			    <select class="form-control" id="listaEstados_2" ng-model="valorArticuloEditar.Estado">
+			    	<option ng-repeat="estado in estados" value="{{estado}}">{{estado}}</option>
+			    </select>
+			  </div>
+			  <div class="form-group">
+			    <label for="exampleFormControlSelect1">Seleccione una categoría</label>
+			    <select class="form-control" id="listaEstados_2" ng-model="valorArticuloEditar.Categoria">
+			    	<option ng-repeat="(key,categoria) in categorias" value="{{key}}">{{categoria.Nombre}}</option>
+			    </select>
+			  </div>
+			  <div class="form-group">
+			    <label for="exampleFormControlSelect1">Seleccione la página donde se mostrará</label>
+			    <select class="form-control" id="listaEstados_2" ng-model="valorArticuloEditar.Menu">
+			    	<option ng-repeat="(key,menu) in menus" value="{{key}}">{{menu.Nombre}}</option>
+			    </select>
+			  </div>
+			  <div class="form-group">
+				  <label for="example-date-input" class="col-2 col-form-label">Fecha inicio publicación</label>
+				  <div class="col-10">
+				    <input class="form-control" type="date" value="" id="example-date-input" ng-model="valorArticuloEditar.FechaInicio">
+				  </div>
+				</div>
+				<div class="form-group">
+				  <label for="example-date-input" class="col-2 col-form-label">Fecha fin publicación</label>
+				  <div class="col-10">
+				    <input class="form-control" type="date" value="" id="example-date-input" ng-model="valorArticuloEditar.FechaFin">
+				  </div>
+				</div>
+	        </form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+	        <button type="button" class="btn btn-primary" ng-click="guardarCambios();">Guardar cambios</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<div class="modal fade" id="nuevoArticulo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Agregar una nuevo artículo</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form>
+	          <div class="form-group">
+	            <label for="recipient-name" class="form-control-label">Título del artículo</label>
+	            <input type="text" class="form-control" ng-model="tituloNuevoArticulo">
+	          </div>
+	          <div class="form-group">
+			    <label for="cuerpoArticulo">Cuerpo del artículo</label>
+			    <textarea class="form-control" id="cuerpoArticulo" ng-model="cuerpoNuevoArticulo" rows="3"></textarea>
+			  </div>
+			  <div class="form-check">
+				  <label class="form-check-label">
+				    <input class="form-check-input" type="checkbox" value="" ng-model="leerMas">Leer más...
+				  </label>
+				</div>
+			  <div class="form-group">
+	            <label for="recipient-name" class="form-control-label">Autor del artículo</label>
+	            <input type="text" class="form-control" ng-model="autorNuevoArticulo">
+	          </div>
+	          <div class="form-group">
+			    <label for="exampleFormControlSelect1">Seleccione un estado</label>
+			    <select class="form-control" id="listaEstados_2" ng-model="estadoNuevoArticulo">
+			    	<option ng-repeat="estado in estados" value="{{estado}}">{{estado}}</option>
+			    </select>
+			  </div>
+			  <div class="form-group">
+			    <label for="exampleFormControlSelect1">Seleccione una categoría</label>
+			    <select class="form-control" id="listaEstados_2" ng-model="categoriaNuevoArticulo">
+			    	<option ng-repeat="(key,categoria) in categorias" value="{{key}}">{{categoria.Nombre}}</option>
+			    </select>
+			  </div>
+			  <div class="form-group">
+			    <label for="exampleFormControlSelect1">Seleccione la página donde se mostrará</label>
+			    <select class="form-control" id="listaEstados_2" ng-model="menuNuevoArticulo">
+			    	<option ng-repeat="(key,menu) in menus" value="{{key}}">{{menu.Nombre}}</option>
+			    </select>
+			  </div>
+			  <div class="form-group">
+				  <label for="example-date-input" class="col-2 col-form-label">Fecha inicio publicación</label>
+				  <div class="col-10">
+				    <input class="form-control" type="date" value="" id="example-date-input" ng-model="fechaInicioNuevoArticulo">
+				  </div>
+				</div>
+				<div class="form-group">
+				  <label for="example-date-input" class="col-2 col-form-label">Fecha fin publicación</label>
+				  <div class="col-10">
+				    <input class="form-control" type="date" value="" id="example-date-input" ng-model="fechaFinNuevoArticulo">
+				  </div>
+				</div>
+	        </form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+	        <button type="button" class="btn btn-primary" ng-click="guardarNuevo()">Guardar</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
